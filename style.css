@@ -5,24 +5,19 @@
     box-sizing: border-box;
 }
 
-html {
-    scroll-behavior: smooth;
-}
-
-body {
-    background: #080808;
-    color: #fff;
-}
-
+html { scroll-behavior: smooth; }
+body { background: #080808; color: #fff; }
 .container { margin: 0 2%; }
 .content-list, .project-list { margin: 0 3vw; }
+
+                        /*   header   */
 
 #header {
     width: 100%;
     min-height: 100vh;
     background-image: url(assets/images/my-pics/background-image.png);
     background-size: cover;
-    background-position: 90% center;
+    background-position: 90% center; /* horizontal/vertical - to center the face from bg-image in mobile view */
 }
 
 #header .container {
@@ -35,19 +30,17 @@ body {
 .header-text {
     font-size: 7.5vh;
     line-height: 1;
-    
     text-shadow:
     -1px -1px 0 black,
      1px -1px 0 black,
     -1px  1px 0 black,
      1px  1px 0 black;
-    @supports (-webkit-text-stroke: 1px black) {
+    @supports (-webkit-text-stroke: 1px black) { /* textstrokes are the more efficient method, but not supported by firefox */
         h1 {
             text-shadow: none;
             -webkit-text-stroke: 1px black;
         }
     }
-    /* textstrokes are the more efficient method, but not supported by firefox */
     position: absolute;
     bottom: 20px;
     /* Moves the element 20 pixels from the bottom of its positioned ancestor.
@@ -55,9 +48,7 @@ body {
     If there's no relative ancestor, it will be 20px above the bottom of the whole page. */
 }
 
-.header-text span {
-    color: yellowgreen;
-}
+.header-text span { color: yellowgreen; }
 
 nav {
     display: flex;
@@ -76,20 +67,20 @@ nav {
 
 #header .logo { margin-top: 10px; cursor: pointer; }
 
-nav ul li {
+#sidemenu li {
     display: inline-block;
     list-style: none;
     margin: 10px 20px;
 }
 
-nav ul li a {
+#sidemenu li a {
     color: #fff;
     text-decoration: none;
     font-size: 18px;
     position: relative;
 }
 
-nav ul li a::after {
+#sidemenu li a::after {
     content: "";
     width: 0%;
     height: 3px;
@@ -100,57 +91,43 @@ nav ul li a::after {
     transition: 0.5s;
 }
 
-nav ul li a:hover::after {
-    width: 100%;
-}
+nav .fa-solid { display: none; }   /* don't display 'Close Navbar' button in desktop view */
+#sidemenu li a:hover::after { width: 100%; } 
 
-#about { padding: 80px 0 30px; }
+                        /*   about   */
+
 #about h2 { margin-bottom: 0.5rem; }
-h2.skillicons {
+
+.skill-icons {
     display: flex;
     align-items: center;
     gap: 10px;
     margin-bottom: 0;
 }
-h2.skillicons i, h2.skillicons img {
+
+.skill-icons i, .skill-icons img {
     display: inline-block;
-    vertical-align: middle;
+    transition: transform 0.2s ease, filter 0.25s ease;
     line-height: 1;
 }
-h2.skillicons img {
-    height: 26px;
-    width: 26px;
-}
+.skill-icons i:hover, .skill-icons img:hover { transform: translateY(-2px) scale(1.06); }
+.skill-icons i { font-size: 25px; }  /* The earlier problem was that I fixed the <i>'s height and width to 25px. As it's an inline font element, the font size would change and leave empty spaces in the 25px box. */
+.skill-icons img { height: 25px; }
 
-.row {
+.row { /* the 'about' section divided into two flex columns (portrait + intro) */
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
 }
 
-.about-col-1 {
-    flex-basis: 35%;
-}
+.about-col-1 { flex-basis: 35%; }
+.about-col-1 img { width: 100%; border-radius: 15px; }
+.about-col-2 { flex-basis: 60%; }
+.sub-title { font-size: 60px; font-weight: 600; }
 
-.about-col-1 img {
-    width: 100%;
-    border-radius:  15px; ;
-}
+.skill-categories { display: flex; margin: 20px 0 20px; }
 
-.about-col-2 {
-    flex-basis: 60%;
-}
-
-.sub-title {
-    font-size: 60px;
-    font-weight: 600;
-}
-
-.tab-titles {
-    display: flex;
-    margin: 20px 0 20px;
-}
-
+/* individual skill tab buttons */
 .tab-links {
     margin-right: 50px; 
     font-size: 18px;
@@ -169,32 +146,23 @@ h2.skillicons img {
     bottom: -8px;
     transition: 0.5s ;
 }
+.tab-links.active-link::after { width: 50%; }
 
-.tab-links.active-link::after {
-    width: 50%;
-}
+.tab-links i { transition: 0.25s ease; }
+.tab-links i:hover { transform: translateY(-2px) scale(1.06); }
 
-.tab-contents ul li {
-    list-style: none;
-    margin: 10px 0;
-}
+.tab-contents ul li { list-style: none; margin: 10px 0; }
+.tab-contents ul li span { color: #b54769; font-size: 14px; }
 
-.tab-contents ul li span {
-    color: #b54769;
-    font-size: 14px;
-}
+.tab-contents { display: none; }
+.tab-contents.active-tab { display: block; }
 
-.tab-contents {
-    display: none;
-}
+                        /*   general sections   */
 
-.tab-contents.active-tab {
-    display: block;
-}
-
-#education { padding: 30px 0; }
+section { padding: 30px 0; }
+#header { padding: 0; }
+#about { padding: 80px 0 30px; }
 #contact { padding: 30px 0 0; }
-#experience, #certifications { padding: 0 0 30px; }
 #certifications a { color: white; text-decoration: none; }
 
 .content-list {
@@ -244,9 +212,7 @@ h2.skillicons img {
     transform: translateY(-10px);
 }
 
-#projects {
-    padding: 50px 0;
-}
+                        /*   projects   */
 
 .project-list {
     display: grid;
@@ -288,10 +254,7 @@ h2.skillicons img {
     transition: height 0.5s;
 }
 
-.layer h3 {
-    font-weight: 500;
-    margin-bottom: 20px;
-}
+.layer h3 { font-weight: 500; margin-bottom: 20px; }
 
 .layer a {
     margin-top: 20px;
@@ -306,13 +269,8 @@ h2.skillicons img {
     text-align: center;
 }
 
-.project:hover img {
-    transform: scale(1.1)
-}
-
-.project:hover .layer {
-    height: 100%;
-}
+.project:hover img { transform: scale(1.1) }
+.project:hover .layer { height: 100%; }
 
 .btn {
     display: block;
@@ -325,22 +283,13 @@ h2.skillicons img {
     color: #fff;
     transition: background 0.5s;
 }
+.btn:hover { background: #ff004f; }
 
-.btn:hover {
-    background: #ff004f;
-}
+                        /*   contact info   */
 
-.contact-left {
-    flex-basis: 35%;
-}
-
-.contact-right {
-    flex-basis: 60%;
-}
-
-.contact-left p {
-    margin-top: 30px;
-}
+.contact-left { flex-basis: 35%; }
+.contact-right { flex-basis: 60%; }
+.contact-left p { margin-top: 30px; }
 
 .contact-left p i {
     color: #ff004f;
@@ -349,10 +298,7 @@ h2.skillicons img {
 }
 
 .contact-link { color: #ffffff; }
-
-.social-icons {
-    margin-top: 30px;
-}
+.social-icons { margin-top: 30px; }
 
 .social-icons a {
     text-decoration: none;
@@ -374,14 +320,8 @@ h2.skillicons img {
     cursor: pointer;
 }
 
-button a {
-    color: inherit; 
-    text-decoration: inherit;
-}
-
-.contact-right form {
-    width: 100%;
-}
+button a { color: inherit; text-decoration: inherit; }
+.contact-right form { width: 100%; }
 
 form input, form textarea {
     width: 100%;
@@ -402,7 +342,9 @@ form .btn2 {
     cursor: pointer;
 }
 
-.copyright {
+                        /*   footer   */
+
+footer {
     width: 100%;
     text-align: center;
     padding: 25px 0;
@@ -410,17 +352,12 @@ form .btn2 {
     font-weight: 300;
     margin-top: 20px;
 }
+footer i { color: #ff004f; }
 
-.copyright i {
-    color: #ff004f;
-}
-
-nav .fa-solid {
-    display: none;
-}
+                        /*   mobile screen properties   */
 
 @media only screen and (max-width: 1000px) {
-    nav ul {
+    #sidemenu {
         background: #262626;
         position: fixed;
         top: 0;
@@ -434,46 +371,21 @@ nav .fa-solid {
         border-bottom: 2px solid white;
         border-bottom-left-radius: 20px;
     }
-    
-    nav ul li {
-        display: block;
-        margin: 10px;
-    }
+    #sidemenu li { display: block; margin: 10px; }
     
     nav .fa-solid {
         display: block;
         font-size: 25px;
         cursor: pointer;
     }
-    .fa-solid.fa-bars { position: fixed; top: 30px; right: 15px; z-index: 2; }
-    .fa-solid.fa-circle-xmark { position: absolute; top: 15px; left: 10px; }
+    .fa-solid.fa-bars { position: fixed; top: 30px; right: 15px; z-index: 2; }  /* a fixed element is positioned relative to the browser viewport and stays put when the page scrolls */
+    .fa-solid.fa-circle-xmark { position: absolute; top: 15px; left: 10px; }    /* an absolute element is positioned relative to its closest positioned ancestor and moves with the page flow unless that ancestor is also fixed */
     
-    .sub-title {
-        font-size: 40px;
-    }
-    
-    .about-col-1,.about-col-2 {
-        flex-basis: 100%;
-    }
-    
-    .about-col-1 {
-        margin-bottom: 30px;
-    }
-    
-    .about-col-2 {
-        font-size: 14px;
-    }
-    
-    .tab-links {
-        font-size: 16px;
-        margin-right: 20px;
-    }
-    
-    .contact-left,.contact-right {
-        flex-basis: 100%;
-    }
-    
-    .copyright {
-        font-size: 14px;
-    }
+    .sub-title { font-size: 40px; }
+    .about-col-1,.about-col-2 { flex-basis: 100%; }
+    .about-col-1 { margin-bottom: 30px; }
+    .about-col-2 { font-size: 14px; }
+    .tab-links { font-size: 16px; margin-right: 20px; }
+    .contact-left,.contact-right { flex-basis: 100%; }
+    footer { font-size: 14px;}
 }
